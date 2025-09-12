@@ -274,12 +274,29 @@ router.delete("/education/:edu_id", auth, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+/**
+ * @route   GET /api/profile/github/:username
+ * @desc    Get user repos from GitHub
+ * @access  Public
+ */
+router.get("/github/:username", async (req, res) => {
+  try {
+    const uri = `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`;
+    
+    const headers = {
+      'user-agent': 'node.js'
+    };
 
-// // @route GET api/profile/github/:username
-// // @desc GET user repos from github 
-// // @access public
-
-// router.get("/github/:username", (req, res ) => {
-
-// })
+    const githubResponse = await axios.get(uri, { headers });
+    
+    return res.json(githubResponse.data);
+    
+  } catch (err) {
+    console.error(err.message);
+    if (err.response.status === 404) {
+      return res.status(404).json({ msg: 'No GitHub profile found' });
+    }
+    res.status(500).send('Server error');
+  }
+});
 export default router;

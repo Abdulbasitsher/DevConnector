@@ -14,7 +14,7 @@ export const registerUser = createAsyncThunk(
         },
       };
       const body = JSON.stringify({ name, email, password });
-      const res = await axios.post('/api/users', body, config);
+      const res = await axios.post('/api/users/registerUser', body, config);
       return res.data;
     } catch (err) {
       const message = err.response?.data?.message || err.message;
@@ -36,7 +36,7 @@ export const loginUser = createAsyncThunk(
         },
       };
       const body = JSON.stringify({ email, password });
-      const res = await axios.post('/api/auth', body, config);
+      const res = await axios.post('/api/auth/loginUser', body, config);
       return res.data;
     } catch (err) {
       const message = err.response?.data?.message || err.message;
@@ -58,7 +58,7 @@ export const loadUser = createAsyncThunk(
           'x-auth-token': token,
         },
       };
-      const res = await axios.get('/api/auth', config);
+      const res = await axios.get('/api/auth/getUserData', config);
       return res.data;
     } catch (err) {
       const message = err.response?.data?.message || err.message;

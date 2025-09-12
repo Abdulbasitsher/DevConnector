@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken"
 
 const router = express.Router();
 
-router.post("/",
+router.post("/registerUser",
   [
     check("name", "Name is required").not().isEmpty(),
     check("email", "Valid email is required").isEmail(),

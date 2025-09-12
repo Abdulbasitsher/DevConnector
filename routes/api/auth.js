@@ -9,7 +9,7 @@ import auth from "../../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", auth, async (req, res) => {
+router.get("/getUserData", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     if (!user) {
@@ -23,7 +23,7 @@ router.get("/", auth, async (req, res) => {
 });
 // authenticate user & user token
 
-router.post("/",
+router.post("/loginUser",
   [
     check("email", "Valid email is required").isEmail(),
     check("password", "Enter Password").exists()

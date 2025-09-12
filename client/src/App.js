@@ -9,10 +9,10 @@ import Register from "./Components/auth/Register";
 import Alert from "./Components/layout/alert";
 import { Provider } from "react-redux";
 import store from "./store";
-import { loadUser } from "./actions/auth";  // <-- import action
+import { loadUser } from "./slices/authSlice";  // <-- import action
 import setAuthToken from "./utils/setAuthToken"; // <-- helper to set axios headers
 import Dashboard from "./Components/dashboard/Dashboard";
-import ProtectedRoute from "./Components/routing/ProtectedRoute";
+import ProtectedRoute from './Components/routing/ProtectedRoute';
 
 // If there's a token in localStorage, set it globally before anything else
 if (localStorage.token) {
@@ -36,6 +36,11 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route path="dashboard" element={
+                <ProtectedRoute>
+                  <Dashboard/>
+                </ProtectedRoute>
+              }/>
             </Routes>
           </main>
         </Fragment>
