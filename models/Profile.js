@@ -1,118 +1,62 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const ProfileSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
-    },
-    company: {
-        type: String
-    },
-    website: {
-        type: String
-    },
-    location:{
-        type: String
-    },
-    status: {
-        type: String,
-        required: true
-    },
-    skills:{
-        type: [String],
-        required: true
-    },
-    bio:{
-        type: String
-    },
-    githubUsername:{
-        type: String
-    },
-    experience: [
-        {
-            title: {
-                type: String,
-                required: true
-            },
-            company: {
-                type: String,
-                required: true
-            },
-            location: {
-                type: String
-            },
-            from: {
-                type: String,
-                required: true
-            },
-            to:{
-                type: Date
-            },
-            current: {
-                type: Boolean,
-                default: false
-            },
-            description: {
-                type: String
-            }
-        }
-    ],
-    education: [
-        {
-            school:{
-                type: String,
-                required: true
-            },
-            degree: {
-                type: String,
-                required: true
-            },
-            fieldOfStudy: {
-                type: String,
-                required: true
-            },
-            from: {
-                type: Date,
-                required: true
-            },
-            to: {
-                type: Date
-            },
-            currect: {
-                type: Boolean,
-                defalut: false
-            },
-            descriptoin: {
-                type: String 
-            }
-        }
-    ],
-    socail: [
-        {
-            twitter: {
-                type: String
-            },
-            facebook: {
-                type: String
-            },
-            instagram:{ 
-                type: String
-            },
-            youtube:{
-                type: String
-            },
-            linkedIn:{
-                type: String
-            }
-        }
-    ],
-    dates: {
-        type: Date,
-        default: Date.now
-    }
-    
-})
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user"
+  },
+  company: String,
+  website: String,
+  location: String,
+  status: {
+    type: String,
+    required: true
+  },
+  skills: {
+    type: [String],
+    required: true
+  },
+  bio: String,
+  githubUsername: String,
 
-const Profile = mongoose.model("Profile", ProfileSchema)
+    // ✅ Experience (not required so profile can save without it)
+  experience: [
+    {
+      title: String,
+      company: String,
+      location: String,
+      from: Date,
+      to: Date,
+      current: Boolean,
+      description: String
+    }
+  ],
+  education: [
+    {
+      school: String,
+      degree: String,
+      fieldOfStudy: String,
+      from: Date,
+      to: Date,
+      current: Boolean,
+      description: String
+    }
+  ],
+  // ✅ Social links as a single object
+  social: {
+    twitter: String,
+    facebook: String,
+    instagram: String,
+    youtube: String,
+    linkedIn: String
+  },
+
+  date: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const Profile = mongoose.model("Profile", ProfileSchema);
 
 export default Profile;

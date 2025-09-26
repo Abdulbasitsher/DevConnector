@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // Async thunks
 export const registerUser = createAsyncThunk(
-  'auth/register',
+  'auth/registerUser',
   async ({ name, email, password }, { rejectWithValue }) => {
     try {
       const config = {
@@ -15,6 +15,7 @@ export const registerUser = createAsyncThunk(
       };
       const body = JSON.stringify({ name, email, password });
       const res = await axios.post('/api/users/registerUser', body, config);
+
       return res.data;
     } catch (err) {
       const message = err.response?.data?.message || err.message;

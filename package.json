@@ -6,6 +6,7 @@
   "author": "AbdulBasit Sher",
   "type": "module",
   "main": "index.js",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",

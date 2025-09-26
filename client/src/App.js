@@ -13,6 +13,7 @@ import { loadUser } from "./slices/authSlice";  // <-- import action
 import setAuthToken from "./utils/setAuthToken"; // <-- helper to set axios headers
 import Dashboard from "./Components/dashboard/Dashboard";
 import ProtectedRoute from './Components/routing/ProtectedRoute';
+import CreateProfile from "./Components/layout/profile_forms/CreateProfile";
 
 // If there's a token in localStorage, set it globally before anything else
 if (localStorage.token) {
@@ -41,6 +42,10 @@ function App() {
                   <Dashboard/>
                 </ProtectedRoute>
               }/>
+              <Route path="/layout/profile-forms/create-profile" element={
+                <ProtectedRoute>
+                  <CreateProfile />
+                </ProtectedRoute>} />
             </Routes>
           </main>
         </Fragment>

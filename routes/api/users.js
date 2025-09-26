@@ -58,7 +58,16 @@ router.post("/registerUser",
       const secret = process.env.SECRET
       jwt.sign(payload, secret,{expiresIn: 36000} , (err,token) => {
         if(err) throw err
-        res.json({token})
+        res.json({
+          token,
+          user: {
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+            avatar: newUser.avatar
+          }
+});
+
       } )
 
     } catch (err) {

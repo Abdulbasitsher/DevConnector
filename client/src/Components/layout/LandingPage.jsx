@@ -1,6 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
 function LandingPage() {
+  // Get authentication status from Redux store
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+
+  // If user is authenticated, redirect to dashboard
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />
+  }
+
   return (
     <section className="landing">
       <div className="dark-overlay">
@@ -12,7 +21,7 @@ function LandingPage() {
           </p>
           <div className="buttons">
             <Link to="/register" className="btn btn-primary">Sign Up</Link>
-            <Link tohref="/login" className="btn btn-light">Login</Link>
+            <Link to="/login" className="btn btn-light">Login</Link>
           </div>
         </div>
       </div>

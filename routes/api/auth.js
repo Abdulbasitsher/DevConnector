@@ -39,13 +39,14 @@ router.post("/loginUser",
 
       // Check if user already exists
       let userEmail = await User.findOne({ email });
-      
-      const userPass = await bcrypt.compare(password, userEmail.password)
-
-      if (!userEmail || !userPass) {
-        return res.status(400).json({ message: "invalid Credentials" });
+      if (!userEmail) {
+        return res.status(400).json({ message: "Invalid Credentials" });
       }
-      
+
+      const userPass = await bcrypt.compare(password, userEmail.password);
+      if (!userPass) {
+        return res.status(400).json({ message: "Invalid Credentials" });
+      }
 
 
       const payload = {
@@ -54,10 +55,20 @@ router.post("/loginUser",
         }
       }
       const secret = process.env.SECRET
-      jwt.sign(payload, secret,{expiresIn: 36000} , (err,token) => {
-        if(err) throw err
-        res.status(200).send(token)
-      } )
+      jwt.sign(payload, secret, {expiresIn: 36000}, (err, token) => {
+      if(err) throw err
+      
+      // Change this line:
+      res.json({
+        token: token,
+        user: {
+          id: userEmail.id,
+          name: userEmail.name,
+          email: userEmail.email,
+          avatar: userEmail.avatar
+        }
+      })
+    })
 
     } catch (err) {
       console.error(err.message);
@@ -67,3 +78,5 @@ router.post("/loginUser",
 );
 
 export default router;
+
+
